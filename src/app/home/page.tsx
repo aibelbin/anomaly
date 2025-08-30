@@ -15,15 +15,13 @@ type PageProps = {
 }
 
 
-export default async function Home({ searchParams }: PageProps) {
+export default async function Home() {
   
   const supabase = await createClient()
-  const rawName = searchParams?.name ?? "there"
-  const name = safeLabel(rawName)
-
   const { data: {user} } = await supabase.auth.getUser() 
 
-  if(user!){
+
+  if(!user){
     redirect('/login')
   }
 
@@ -33,7 +31,7 @@ export default async function Home({ searchParams }: PageProps) {
         <header className="mb-8 md:mb-10">
           <h1 className="text-pretty font-sans text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             {"Hi "}
-            <span className="text-blue-600">{name}</span>
+            <span className="text-blue-600"></span>
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">Manage your certificates and documents in one place.</p>
         </header>
