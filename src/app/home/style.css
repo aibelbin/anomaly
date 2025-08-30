@@ -1,0 +1,30 @@
+/* Minimal, page-scoped enhancements for the home page */
+
+/* Prefer reduced motion for users who request it */
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="card"] {
+    transition: none !important;
+  }
+}
+
+/* Subtle interactive affordance on cards */
+[data-slot="card"] {
+  transition: box-shadow 150ms ease, transform 150ms ease;
+}
+
+/* Use shadcn tokens when available; fallback to a readable blue */
+[data-slot="card"]:hover {
+  /* fallback to a soft blue ring if CSS variables aren't present */
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+[data-slot="card"]:focus-visible {
+  outline: 2px solid var(--primary, rgb(37, 99, 235));
+  outline-offset: 2px;
+}
+
+/* Ensure links wrapping cards are block-level for larger hit targets */
+a:has([data-slot="card"]) {
+  display: block;
+}

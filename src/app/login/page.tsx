@@ -12,6 +12,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+
 
 type TabValue = "signin" | "signup"
 
@@ -78,6 +80,8 @@ function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
   const [loading, setLoading] = useState(false)
   const [error, SetError] = useState<String | null>(null)
 
+  const router = useRouter()
+
   async function onSubmit(h: React.FormEvent<HTMLFormElement>){
     h.preventDefault()
     setLoading(true)
@@ -99,6 +103,7 @@ function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
     }
     else {
       console.log("Success")
+      router.push('/home')
     }
 
     setLoading(false)
@@ -176,6 +181,7 @@ function SignUpForm({ goToSignIn }: { goToSignIn: () => void }) {
     } else {
       
       console.log("Signed up successfully!");
+      goToSignIn();
     }
   setLoading(false)
   }
