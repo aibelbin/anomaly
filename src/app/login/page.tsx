@@ -108,8 +108,8 @@ function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
     <form onSubmit={onSubmit} className="space-y-6">
       <CardContent className="space-y-6">
         <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" inputMode="email" placeholder="your mail id here" required />
+          <Label htmlFor="rollno-signup">Roll No</Label>
+          <Input id="rollno-signup" type="text" placeholder="Enter your roll number" required />
         </div>
 
         <div className="grid gap-2">
@@ -156,13 +156,16 @@ function SignUpForm({ goToSignIn }: { goToSignIn: () => void }) {
     setLoading(true)
     setError(null)
 
-    const email = (e.currentTarget.elements.namedItem("email-signup") as HTMLInputElement).value
+    const name = (e.currentTarget.elements.namedItem("name") as HTMLInputElement).value 
+    const rollid = (e.currentTarget.elements.namedItem("rollno-signup") as HTMLInputElement).value
     const password = (e.currentTarget.elements.namedItem("password-signup") as HTMLInputElement).value
+
+    const authEmail = `${rollid}@your-app-domain.com`;
 
     const supabase = createClient()
 
     const {error: signUpError} = await supabase.auth.signUp({
-      email, 
+      email: authEmail, 
       password
     });
 
@@ -185,8 +188,8 @@ function SignUpForm({ goToSignIn }: { goToSignIn: () => void }) {
         </div>
 
         <div className="grid gap-2">
-          <Label htmlFor="email-signup">Email</Label>
-          <Input id="email-signup" type="email" inputMode="email" placeholder="your mail here" required />
+          <Label htmlFor="rollno-signup">Roll No</Label>
+          <Input id="rollno-signup" type="text" placeholder="Enter your roll number" required />
         </div>
 
         <div className="grid gap-2">
