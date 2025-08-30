@@ -1,0 +1,35 @@
+/* Minimal, page-scoped styles for the auth page
+   Color palette (4 total):
+   - Primary: Blue 600 (#2563eb)
+   - Neutrals: White (#ffffff), Gray 900 (#111827), Gray 500 (#6b7280)
+*/
+
+:root {
+  --brand: #2563eb;
+  --neutral-900: #111827;
+  --neutral-500: #6b7280;
+  --white: #ffffff;
+}
+
+/* Centers the auth card cleanly with breathing room */
+.auth-grid-center {
+  display: grid;
+  place-items: center;
+}
+
+/* Accessible focus outlines without gradients */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Link accent color for CTA buttons rendered as <button> */
+.auth-link {
+  color: var(--brand);
+}
+.auth-link:hover {
+  color: #1d4ed8; /* blue-700 */
+}
