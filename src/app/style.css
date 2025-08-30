@@ -1,0 +1,29 @@
+/* Minimalist, page-scoped tweaks matching the blue + neutral theme */
+/* Colors used (4 total): blue-600 (#2563eb), white (#ffffff), slate-900, slate-600 */
+
+.feature-card {
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  border: 1px solid hsl(214deg 32% 91%); /* slate-200-ish */
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.06); /* slate-950 @ 6% */
+}
+
+.feature-card:focus-within {
+  outline: 2px solid #2563eb; /* blue-600 */
+  outline-offset: 2px;
+}
+
+/* Keep sections comfortably spaced on small screens */
+section + section {
+  margin-top: 0.5rem;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .feature-card {
+    transition: none;
+  }
+}
