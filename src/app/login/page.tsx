@@ -83,13 +83,15 @@ function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
     setLoading(true)
     SetError(null)
 
-    const email = (h.currentTarget.elements.namedItem("email") as HTMLInputElement).value
+    const rollid = (h.currentTarget.elements.namedItem("rollno-signin") as HTMLInputElement).value
     const password = (h.currentTarget.elements.namedItem("password") as HTMLInputElement).value 
 
+    const auth_email = `${rollid}@your-app-domain.com`
     const supabase = createClient()
 
     const {error : signInError} = await supabase.auth.signInWithPassword({
-      email, password
+      email: auth_email,
+       password
     });
 
     if (signInError){
@@ -108,8 +110,8 @@ function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
     <form onSubmit={onSubmit} className="space-y-6">
       <CardContent className="space-y-6">
         <div className="grid gap-2">
-          <Label htmlFor="rollno-signup">Roll No</Label>
-          <Input id="rollno-signup" type="text" placeholder="Enter your roll number" required />
+          <Label htmlFor="rollno-signin">Roll No</Label>
+          <Input id="rollno-signin" type="text" placeholder="Enter your roll number" required />
         </div>
 
         <div className="grid gap-2">
