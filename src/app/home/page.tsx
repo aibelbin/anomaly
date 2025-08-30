@@ -4,6 +4,9 @@ import Link from "next/link"
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { FileText, Trophy, Book, FolderPlus } from "lucide-react"
+import { createClient } from "@/lib/supabase/server"
+import { redirect } from "next/navigation"
+
 
 type PageProps = {
   searchParams?: {
@@ -11,9 +14,18 @@ type PageProps = {
   }
 }
 
-export default function Home({ searchParams }: PageProps) {
+
+export default async function Home({ searchParams }: PageProps) {
+  
+  const supabase = await createClient()
   const rawName = searchParams?.name ?? "there"
   const name = safeLabel(rawName)
+
+  const { data: {user} } = await supabase.auth.getUser() 
+
+  if(user!){
+    redirect('/login')
+  }
 
   return (
     <main className="min-h-dvh bg-background">
