@@ -46,7 +46,7 @@ export default async function Home() {
           />
 
           <ActionCard
-            href="/add/hackathon"
+            href="/hackathon"
             ariaLabel="Add Hackathon or Competition certificates"
             title="Hackathon/Competition"
             description="Add a new event certificate"

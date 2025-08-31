@@ -9,10 +9,20 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useFormState } from "react-dom"
+import { Fascinate } from "next/font/google"
+
 
 type Level = "international" | "national" | "none"
 
-export default function HackathonForm() {
+export default function HackathonForm({
+  action,
+}: {
+  action: (prevState: { success: boolean; message?: string }, formData: FormData) =>
+    Promise<{ success: boolean; message?: string }>
+}){
+
+  const [state, formAction] =  useFormState(action, {success: false})
   const [name, setName] = React.useState("")
   const [level, setLevel] = React.useState<Level>("none")
   const [won, setWon] = React.useState(false)
@@ -25,7 +35,7 @@ export default function HackathonForm() {
   const [additionalFiles, setAdditionalFiles] = React.useState<File[]>([])
   const [additionalPreviews, setAdditionalPreviews] = React.useState<string[]>([])
 
-  const [submitted, setSubmitted] = React.useState(false)
+
 
   React.useEffect(() => {
     return () => {
@@ -54,20 +64,6 @@ export default function HackathonForm() {
     setAdditionalPreviews(urls)
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitted(true)
-    console.log("[v0] Hackathon form data", {
-      name,
-      level,
-      won,
-      prize: won ? prize : null,
-      amount: won ? amount : null,
-      date,
-      certificateFile: certificateFile?.name,
-      additionalFiles: additionalFiles.map((f) => f.name),
-    })
-  }
 
   const isValid = name.trim().length > 0 && Boolean(date)
 
@@ -79,13 +75,14 @@ export default function HackathonForm() {
           <CardDescription>Provide the event information below.</CardDescription>
         </CardHeader>
 
-        <form onSubmit={handleSubmit} className="contents">
+        <form action={formAction} className="contents">
           <CardContent className="space-y-6">
             {/* Name of the hackathon */}
             <div className="grid gap-2">
               <Label htmlFor="hackathon-name">Name of the hackathon</Label>
               <Input
                 id="hackathon-name"
+                name = "name"
                 placeholder="e.g., Global AI Hackathon"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -97,6 +94,7 @@ export default function HackathonForm() {
             <div className="grid gap-2">
               <Label>Level</Label>
               <RadioGroup
+                name="level"
                 className="grid grid-cols-1 gap-2 sm:grid-cols-3"
                 value={level}
                 onValueChange={(v) => setLevel(v as Level)}
@@ -126,6 +124,7 @@ export default function HackathonForm() {
             <div className="flex items-center gap-3">
               <Checkbox
                 id="won"
+                name = "won"
                 checked={won}
                 onCheckedChange={(c) => setWon(Boolean(c))}
                 aria-describedby="won-desc"
@@ -145,6 +144,7 @@ export default function HackathonForm() {
                   <Label htmlFor="prize-name">Prize</Label>
                   <Input
                     id="prize-name"
+                    name = "prize"
                     placeholder="e.g., 1st Place"
                     value={prize}
                     onChange={(e) => setPrize(e.target.value)}
@@ -154,6 +154,7 @@ export default function HackathonForm() {
                   <Label htmlFor="prize-amount">Cash reward amount</Label>
                   <Input
                     id="prize-amount"
+                    name = "amount"
                     type="number"
                     inputMode="decimal"
                     step="0.01"
@@ -168,7 +169,7 @@ export default function HackathonForm() {
             {/* Date of the win */}
             <div className="grid gap-2">
               <Label htmlFor="win-date">Date</Label>
-              <Input id="win-date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+              <Input id="win-date" name="date"type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
             </div>
 
             {/* Certificate image upload */}
@@ -225,11 +226,12 @@ export default function HackathonForm() {
         </form>
       </Card>
 
-      {submitted && (
-        <p className="mt-4 text-sm text-blue-600" role="status">
-          Submitted! This is a demo UI — connect an API to persist the data.
-        </p>
-      )}
-    </>
+      {state.success && (
+        <p className="text-green-600 mt-2">Form submitted successfully!</p>
+        )}
+        {state.message && (
+        <p className="text-red-600 mt-2">{state.message}</p>
+        )}  
+            </>
   )
 }

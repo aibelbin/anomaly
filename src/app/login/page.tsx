@@ -171,15 +171,22 @@ function SignUpForm({ goToSignIn }: { goToSignIn: () => void }) {
 
     const supabase = createClient()
 
-    const {error: signUpError} = await supabase.auth.signUp({
+    const {data, error: signUpError} = await supabase.auth.signUp({
       email: authEmail, 
       password
     });
 
     if (signUpError) {
       setError(signUpError.message);
-    } else {
-      
+    } else if (data.user) {
+       const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+            id: data.user.id, 
+            rollid,
+            name,
+        });
+
       console.log("Signed up successfully!");
       goToSignIn();
     }

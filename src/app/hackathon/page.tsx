@@ -2,15 +2,17 @@ import "./style.css"
 import HackathonForm from "@/components/hackathon-form"
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation";
+import { submitHackathon } from "./action";
+
 
 export default async function HackathonUploadPage() {
-
     const supabase = await createClient();
     const {data: {user}} = await supabase.auth.getUser()
-
+    console.log(user?.email)
     if(!user){
         redirect('/login')
     }
+
 
   return (
     <main className="min-h-[100dvh] bg-background">
@@ -22,8 +24,7 @@ export default async function HackathonUploadPage() {
               Add your hackathon participation details and upload certificate images.
             </p>
           </header>
-
-          <HackathonForm />
+            <HackathonForm action={submitHackathon} />
         </div>
       </section>
     </main>
