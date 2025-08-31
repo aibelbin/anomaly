@@ -1,0 +1,30 @@
+/* Minimal theme-aligned refinements
+   Palette: blue-600 (#2563eb), white, slate-900, slate-600 (4 colors total) */
+
+.card-surface {
+  transition: box-shadow 200ms ease;
+}
+.card-surface:hover {
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.08); /* slate-900 at low opacity */
+}
+
+/* Improve default file input button appearance to match theme */
+.file-input::file-selector-button {
+  margin-right: 12px;
+  border: none;
+  background: #2563eb; /* blue-600 */
+  color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.file-input:hover::file-selector-button {
+  background: #1d4ed8; /* blue-700 hover */
+}
+
+.helper-muted {
+  font-size: 0.8125rem;
+  color: #475569; /* slate-600 */
+}
