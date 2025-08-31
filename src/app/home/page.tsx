@@ -54,7 +54,7 @@ export default async function Home() {
           />
 
           <ActionCard
-            href="/add/course"
+            href="/course"
             ariaLabel="Add Course certificates"
             title="Course certificates"
             description="Upload a new course certificate"

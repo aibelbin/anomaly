@@ -1,0 +1,24 @@
+/* Minimalist theme helpers and conditional reveal for "Other" provider.
+   Color palette (4-5 colors total): blue-600 (primary), white, slate-900, slate-600, border token.
+*/
+
+/* Show the "Specify provider" field only when the 'Other' radio is checked */
+.course-type-group .other-provider {
+  display: none;
+}
+
+.course-type-group:has(#course-type-other:checked) .other-provider {
+  display: grid;
+}
+
+/* Subtle card hover if you ever convert labels into standalone cards */
+.course-type-group label:hover {
+  transition: background-color 150ms, color 150ms, border-color 150ms;
+}
+
+/* Reduce motion when users prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .course-type-group label:hover {
+    transition: none;
+  }
+}

@@ -175,7 +175,7 @@ export default function HackathonForm({
             {/* Certificate image upload */}
             <div className="grid gap-2">
               <Label htmlFor="certificate-upload">Certificate image</Label>
-              <Input id="certificate-upload" type="file" accept="image/*" onChange={onCertificateChange} />
+              <Input id="certificate-upload" name="certificate_image" type="file" accept="image/*" onChange={onCertificateChange} />
               {certificatePreview && (
                 <div className="preview-grid">
                   <div className="preview-tile">
@@ -195,7 +195,7 @@ export default function HackathonForm({
             {/* Additional images upload */}
             <div className="grid gap-2">
               <Label htmlFor="additional-upload">Additional images (optional)</Label>
-              <Input id="additional-upload" type="file" accept="image/*" multiple onChange={onAdditionalChange} />
+              <Input id="additional-upload" name="additional_image" type="file" accept="image/*" multiple onChange={onAdditionalChange} />
               {additionalPreviews.length > 0 && (
                 <div className="preview-grid">
                   {additionalPreviews.map((src, i) => (

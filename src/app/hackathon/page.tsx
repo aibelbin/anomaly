@@ -13,6 +13,12 @@ export default async function HackathonUploadPage() {
         redirect('/login')
     }
 
+    const email = user.email!;
+    const uuid = crypto.randomUUID();
+    const part = email.split('@');
+    const rollno = part[0];
+    
+
 
   return (
     <main className="min-h-[100dvh] bg-background">
