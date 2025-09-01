@@ -1,10 +1,9 @@
-// app/hackathon/action.ts
 
 "use server"
 
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
-import { v4 as uuidv4 } from 'uuid';
+
 
 export async function submitHackathon(
   prevState: { success: boolean; message?: string },
@@ -13,7 +12,7 @@ export async function submitHackathon(
   const supabase = await createClient()
   const {data : {user}} = await supabase.auth.getUser(); 
 
-  // Safely check if the user and their email exist before proceeding
+  
   if (!user || !user.email) {
     return { success: false, message: 'User not authenticated or email missing.' };
   }
@@ -21,7 +20,7 @@ export async function submitHackathon(
   const email = user.email;
   const parts = email.split('@'); 
   const user_id = parts[0]; 
-  const id = uuidv4(); // Use uuidv4 for a unique ID
+  const id = crypto.randomUUID(); 
   const hackathon_name = formData.get("name") as string
   const level = formData.get("level") as string
   const won = formData.get("won") === "on"
