@@ -10,6 +10,14 @@ export async function submitHackathon(
   const {data : {user}} = await supabase.auth.getUser(); 
 
   const email= user?.email!
+
+
+    // Handle the case where the user is not authenticated
+  if (!user || !user.email) {
+    return { success: false, message: 'User not authenticated or email missing.' };
+  }
+
+  
   const parts = email.split('@'); 
   const user_id = parts[0]; 
   const id = crypto.randomUUID();
@@ -20,6 +28,8 @@ export async function submitHackathon(
   const amount = formData.get("amount") as string
   const date = formData.get("date") as string
   const certificate_url = "ranbirKapoor"
+
+
 
   const { error } = await supabase.from("hackathon_certificates").insert({
     id, 
