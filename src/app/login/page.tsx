@@ -78,7 +78,7 @@ export default function AuthPage() {
 
 function SignInForm({ goToSignUp }: { goToSignUp: () => void }) {
   const [loading, setLoading] = useState(false)
-  const [error, SetError] = useState<String | null>(null)
+  const [error, SetError] = useState<string | null>(null)
 
   const router = useRouter()
 
